@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.env
+.env.local
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+node_modules/
+*.log
+.DS_Store
+# HF-Modelle / Cache lokal
+hf_cache/
+data/

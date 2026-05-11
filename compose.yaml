@@ -1,0 +1,51 @@
+# vision-service — generisches Compose-File, deploybar auf NUC/evo/Desktop.
+#
+# Bind-Mount /var/lib/vision-service/data persistiert den HF-Cache; das vermeidet,
+# dass beim ersten Container-Start das Donut-Modell aus dem Image kopiert
+# werden muss. Erster Lauf kopiert aus /opt/hf_cache_baked.
+#
+# GPU-Setup: compose.gpu.yaml mergt runtime: nvidia + deploy.resources
+# (siehe compose.gpu.yaml). CPU-only ist Default.
+
+services:
+  vision-service:
+    image: ghcr.io/janpow77/vision-service:${IMAGE_TAG:-latest}
+    container_name: vision-service
+    restart: unless-stopped
+    environment:
+      VISION_PORT: "8005"
+      VISION_DEVICE: "${VISION_DEVICE:-auto}"
+      VISION_DONUT_MODEL: "${VISION_DONUT_MODEL:-naver-clova-ix/donut-base-finetuned-cord-v2}"
+      VISION_ENABLE_DONUT: "${VISION_ENABLE_DONUT:-true}"
+      VISION_ENABLE_TESSERACT: "${VISION_ENABLE_TESSERACT:-true}"
+      VISION_ENABLE_EASYOCR: "${VISION_ENABLE_EASYOCR:-false}"
+      VISION_ENABLE_CHANDRA: "${VISION_ENABLE_CHANDRA:-false}"
+      VISION_TESSERACT_LANGS: "${VISION_TESSERACT_LANGS:-deu,eng}"
+      VISION_OCR_DEFAULT_BACKEND: "${VISION_OCR_DEFAULT_BACKEND:-tesseract}"
+      VISION_EAGER_LOAD: "true"
+      VISION_MAX_IMAGE_BYTES: "${VISION_MAX_IMAGE_BYTES:-10485760}"
+      VISION_MAX_PDF_PAGES: "${VISION_MAX_PDF_PAGES:-50}"
+      HF_HOME: "/data/hf_cache"
+      HF_HUB_DISABLE_TELEMETRY: "1"
+      # API-Key: leer = offen (nur Tailscale). Empfohlen: vom llm-router
+      # gesetzt + im llm-router-Spoke-Header gesendet.
+      VISION_API_KEY: "${VISION_API_KEY:-}"
+    volumes:
+      - /var/lib/vision-service/data:/data
+    # Default: nur Tailscale-erreichbar — bind auf 100.x.y.z, nicht 0.0.0.0.
+    ports:
+      - "${VISION_BIND:-0.0.0.0}:8005:8005"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8005/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 180s
+    # Donut hat einen groesseren RAM-Footprint als bge-reranker → 6 GB.
+    mem_limit: 6g
+    cpus: 4
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"

@@ -1,0 +1,20 @@
+# GPU-Override fuer vision-service. Anwenden via:
+#   docker compose -f compose.yaml -f compose.gpu.yaml up -d
+# Voraussetzung: nvidia-container-toolkit + Docker GPU-Runtime.
+#
+# Achtung: das Default-Image baut mit CPU-Torch. Fuer echtes GPU-Inferring
+# muss ein GPU-Build des Images vorhanden sein (TORCH_INDEX_URL leeren, ggf.
+# cu121-Wheels nutzen). Mit dem CPU-Image faellt Donut intern auf CPU zurueck.
+
+services:
+  vision-service:
+    environment:
+      VISION_DEVICE: "cuda"
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
