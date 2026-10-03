@@ -154,8 +154,6 @@ Schlüssel bei gesetztem `VISION_API_KEY`, `413` Bild größer als `VISION_MAX_I
 | `VISION_OCR_DEFAULT_BACKEND` | `tesseract` | Wahl bei `backend=auto` |
 | `VISION_API_KEY` | leer | Gesetzt: Header `X-Api-Key` wird verlangt |
 | `VISION_MAX_IMAGE_BYTES` | `10485760` (10 MB) | Limit je Bild |
-| `VISION_MAX_PDF_PAGES` | `50` | Limit Seiten je PDF <!-- TODO: im Code derzeit ohne Verwendung, es gibt keinen PDF-Endpunkt --> |
-| `VISION_MAX_PDF_BYTES` | `41943040` (40 MB) | Limit je PDF <!-- TODO: im Code derzeit ohne Verwendung --> |
 | `VISION_EAGER_LOAD` | `true` | Donut beim Start vorladen |
 | `HF_HOME` | `/data/hf_cache` | Hugging-Face-Cache |
 

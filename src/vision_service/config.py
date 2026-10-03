@@ -79,12 +79,6 @@ class Config:
     max_image_bytes: int = field(
         default_factory=lambda: int(os.environ.get("VISION_MAX_IMAGE_BYTES", str(10 * 1024 * 1024))),
     )
-    max_pdf_pages: int = field(
-        default_factory=lambda: int(os.environ.get("VISION_MAX_PDF_PAGES", "50")),
-    )
-    max_pdf_bytes: int = field(
-        default_factory=lambda: int(os.environ.get("VISION_MAX_PDF_BYTES", str(40 * 1024 * 1024))),
-    )
 
     # Eager-Load: Donut beim Startup laden (~3s) oder Lazy beim ersten Request.
     eager_load: bool = field(default_factory=lambda: _env_bool("VISION_EAGER_LOAD", True))
