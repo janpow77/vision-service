@@ -2,6 +2,7 @@
 
 [![Image Build & Push (GHCR)](https://github.com/janpow77/vision-service/actions/workflows/image.yml/badge.svg)](https://github.com/janpow77/vision-service/actions/workflows/image.yml)
 ![Python](https://img.shields.io/badge/python-%E2%89%A53.11-blue)
+[![Lizenz: MIT](https://img.shields.io/badge/Lizenz-MIT-green)](LICENSE)
 
 **Vision- und OCR-Dienst über HTTP: liest Text aus Bildern (Tesseract, optional EasyOCR/Chandra) und
 extrahiert mit Donut strukturierte Felder aus Belegen. Angesprochen über einen vorgeschalteten LLM-Router,
@@ -231,5 +232,4 @@ Issues und Pull Requests sind willkommen. Vor einem PR `pytest` und `ruff check 
 
 ## Lizenz
 
-<!-- TODO: Im Repository liegt keine LICENSE-Datei; Lizenz festlegen. -->
-Noch keine Lizenz festgelegt.
+Veröffentlicht unter der [MIT-Lizenz](LICENSE), Copyright (c) 2026 Jan Riener.

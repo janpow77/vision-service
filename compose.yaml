@@ -1,4 +1,4 @@
-# vision-service — generisches Compose-File, deploybar auf NUC/evo/Desktop.
+# vision-service — generisches Compose-File, deploybar auf beliebigen Hosts (CPU oder GPU).
 #
 # Bind-Mount /var/lib/vision-service/data persistiert den HF-Cache; das vermeidet,
 # dass beim ersten Container-Start das Donut-Modell aus dem Image kopiert
