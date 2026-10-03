@@ -37,12 +37,12 @@ docker compose --env-file /etc/vision-service/env up -d
 docker compose -f compose.yaml -f compose.gpu.yaml up -d
 ```
 
-Smoke-Test gegen einen laufenden Service (Beispiel-IP aus README):
+Smoke-Test gegen einen laufenden Service (`<vision-host>` = Host bzw. IP des Dienstes):
 
 ```bash
-curl http://100.102.132.11:8005/health
-curl -X POST http://100.102.132.11:8005/v1/ocr -F image=@invoice.png -F backend=tesseract
-curl -X POST http://100.102.132.11:8005/v1/vision/parse -F image=@invoice.png -F model=donut-cord-v2
+curl http://<vision-host>:8005/health
+curl -X POST http://<vision-host>:8005/v1/ocr -F image=@invoice.png -F backend=tesseract
+curl -X POST http://<vision-host>:8005/v1/vision/parse -F image=@invoice.png -F model=donut-cord-v2
 ```
 
 ## Struktur

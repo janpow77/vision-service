@@ -1,6 +1,6 @@
 """Konfiguration via Umgebungsvariablen.
 
-Defaults zielen auf einen CPU-Lauf auf der NUC. Fuer evo-x2/Desktop einfach
+Defaults zielen auf einen CPU-Lauf. Fuer GPU-Hosts/Desktop einfach
 ``VISION_DEVICE=cuda`` setzen; transformers nimmt dann automatisch das
 default-CUDA-Geraet. ``auto`` waehlt cuda wenn verfuegbar, sonst cpu.
 """
